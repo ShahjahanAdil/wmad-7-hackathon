@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list';
 import EntypoIcon from 'react-native-vector-icons/dist/Entypo';
 import { launchImageLibrary } from 'react-native-image-picker';
 import DatePicker from 'react-native-date-picker';
@@ -8,7 +9,7 @@ import { APP_HOST } from '@env';
 import axios from 'axios';
 import storage from '@react-native-firebase/storage';
 
-const initialState = { title: '', description: '', image: null, location: '', category: '', date: new Date() };
+const initialState = { title: '', description: '', image: null, location: '', category: '', date: new Date(), privacy: 'public' };
 
 export default function CreateEvent() {
     const { user } = useAuthContext();
@@ -19,6 +20,11 @@ export default function CreateEvent() {
     const [uploading, setUploading] = useState(false);
     const [imageURL, setImageURL] = useState(null);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+    const data = [
+        { key: 'public', value: 'Public' },
+        { key: 'private', value: 'Private' }
+    ]
 
     const handleOnChangeText = (name, val) => setState(s => ({ ...s, [name]: val }));
 
@@ -58,9 +64,9 @@ export default function CreateEvent() {
 
     const handleCreateEvent = async () => {
         setLoading(true);
-        const { title, description, location, category, date } = state;
+        const { title, description, location, category, date, privacy } = state;
 
-        if (!title || !description || !location || !category || !date) {
+        if (!title || !description || !location || !category || !date || !privacy) {
             Alert.alert('Input fields error!', 'Please fill all fields')
             setLoading(false);
             return;
@@ -75,7 +81,8 @@ export default function CreateEvent() {
             imageURL,
             location,
             category,
-            date: date.toISOString()
+            date: date.toISOString(),
+            privacy
         })
             .then(res => {
                 const { status } = res;
@@ -140,6 +147,19 @@ export default function CreateEvent() {
                             cursorColor="#0C82BD"
                             value={state.category}
                             onChangeText={(val) => handleOnChangeText('category', val)}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.label}>Privacy:</Text>
+                        <SelectList
+                            setSelected={(val) => handleOnChangeText('privacy', val)}
+                            data={data}
+                            save="key"
+                            defaultOption={data.find(item => item.key === state.privacy) || data[0]}
+                            boxStyles={{ paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderColor: '#e7e7e7' }}
+                            inputStyles={{ color: '#666' }}
+                            dropdownStyles={{ borderColor: '#e7e7e7' }}
+                            dropdownTextStyles={{ color: '#666' }}
                         />
                     </View>
                     <View>

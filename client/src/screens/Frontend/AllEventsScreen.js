@@ -1,15 +1,17 @@
-import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
+import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import Animated, { SlideInDown, SlideOutLeft } from 'react-native-reanimated';
+import FeatherIcon from 'react-native-vector-icons/dist/AntDesign';
 import Loader from '../../components/Loader/Loader';
+import { APP_HOST } from '@env';
 import axios from 'axios';
 
 export default function AllEventsScreen({ navigation }) {
 
     const [events, setEvents] = useState([])
     const [isVisible, setIsVisible] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useFocusEffect(
         useCallback(() => {
@@ -22,18 +24,18 @@ export default function AllEventsScreen({ navigation }) {
         const fetchEvents = async () => {
             setLoading(true)
 
-            axios.get(`${APP_HOST}events/all-events`)
-                .then(res => {
-                    const { status, data } = res
-                    if (status === 200) {
-                        setEvents(data.events)
-                        setLoading(false)
-                    }
-                })
-                .catch(err => {
-                    console.error("Events fetching error frontend", err)
-                    setLoading(false)
-                })
+            try {
+                const res = await axios.get(`${APP_HOST}events/all-events`)
+                if (res.status === 200) {
+                    setEvents(res.data.events)
+                } else {
+                    console.error("Unexpected status code:", res.status);
+                }
+            } catch (err) {
+                console.error("Events fetching error frontend", err)
+            } finally {
+                setLoading(false)
+            }
         }
         fetchEvents()
     }, [])
@@ -51,11 +53,15 @@ export default function AllEventsScreen({ navigation }) {
                         exiting={SlideOutLeft}
                         style={{ flex: 1 }}
                     >
+                        <View>
+                            <Text style={{ color: '#333', fontSize: 20, fontWeight: 'bold', marginTop: 5, marginBottom: 18 }}>Happening Events:</Text>
+                        </View>
                         {events.map((event, index) => (
                             <TouchableOpacity key={index} style={styles.eventBox} onPress={() => navigation.navigate('EventDetails', { event })}>
                                 <Image source={{ uri: event.imageURL }} style={styles.eventImage} />
                                 <View style={styles.eventDetails}>
                                     <Text style={styles.eventTitle}>{event.title}</Text>
+                                    <Text style={{ color: '#666' }}>See details  <FeatherIcon name='arrowright' size={12} color={'#888'} /></Text>
                                 </View>
                             </TouchableOpacity>
                         ))}
@@ -81,11 +87,13 @@ const styles = StyleSheet.create({
     eventImage: {
         width: '100%',
         height: 150,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        borderRadius: 8
     },
     eventDetails: {
         padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 8
     },
     eventTitle: {
         color: '#333',
@@ -93,4 +101,3 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     }
 });
-

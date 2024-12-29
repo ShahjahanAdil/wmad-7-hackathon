@@ -10,6 +10,7 @@ const eventsSchema = new Schema({
     location: { type: String },
     category: { type: String },
     date: { type: String },
+    privacy: { type: String }
 }, { timestamps: true })
 
 const eventsModel = mongoose.model("events", eventsSchema)
