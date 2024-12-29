@@ -14,7 +14,6 @@ import LoginScreen from '../screens/Auth/LoginScreen';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loader from '../components/Loader/Loader';
-import TodoDetails from '../screens/Frontend/TodoDetails';
 import EventDetails from '../screens/Frontend/EventDetails';
 import CreateEvent from '../screens/Frontend/CreateEvent';
 import UserEventsScreen from '../screens/Frontend/UserEventsScreen';
@@ -42,7 +41,6 @@ const StackNavigator = () => {
             <Stack.Screen name="EditEvent" component={EditEventScreen} options={{ headerTitle: 'Edit Event' }} />
             <Stack.Screen name="UserEventsScreen" component={UserEventsScreen} options={{ headerTitle: 'Manage Events' }} />
             <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerTitle: 'Event Information' }} />
-            <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
         </Stack.Navigator>
     );
 }

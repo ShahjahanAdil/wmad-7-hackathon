@@ -80,7 +80,7 @@ export default function CreateEvent() {
             description,
             imageURL,
             location,
-            category,
+            category: category.toLowerCase(),
             date: date.toISOString(),
             privacy
         })
@@ -144,10 +144,10 @@ export default function CreateEvent() {
                                 <Text style={styles.label}>Category:</Text>
                                 <TextInput
                                     style={styles.createTodoInput}
-                                    placeholder="Enter category"
+                                    placeholder="Enter category (e.g., tech, music, sports)"
                                     placeholderTextColor="#e7e7e7"
                                     cursorColor="#0C82BD"
-                                    value={state.category}
+                                    value={state?.category}
                                     onChangeText={(val) => handleOnChangeText('category', val)}
                                 />
                             </View>

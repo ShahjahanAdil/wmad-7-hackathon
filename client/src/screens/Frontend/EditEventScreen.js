@@ -39,7 +39,7 @@ export default function EditEventScreen({ route }) {
                 const { status } = res
                 if (status === 202) {
                     setLoading(false)
-                    navigation.navigate('AllEvents')
+                    navigation.navigate('UserEventsScreen')
                 }
             })
             .catch(err => {

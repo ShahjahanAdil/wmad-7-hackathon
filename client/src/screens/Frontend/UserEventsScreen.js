@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import FeatherIcon from 'react-native-vector-icons/dist/Feather';
 import { APP_HOST } from '@env';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import Loader from '../../components/Loader/Loader';
 import ConfirmDelete from '../../components/ConfirmDelete/ConfirmDelete';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function UserEventsScreen({ navigation }) {
 
@@ -14,27 +15,30 @@ export default function UserEventsScreen({ navigation }) {
     const [delEventId, setDelEventId] = useState('')
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            setLoading(true)
-            const token = await AsyncStorage.getItem('jwt')
-            const config = { headers: { Authorization: `Bearer ${token}` } }
+    const fetchEvents = async () => {
+        setLoading(true)
+        const token = await AsyncStorage.getItem('jwt')
+        const config = { headers: { Authorization: `Bearer ${token}` } }
 
-            axios.get(`${APP_HOST}events/all`, config)
-                .then(res => {
-                    const { status, data } = res
-                    if (status === 200) {
-                        setEvents(data.events)
-                        setLoading(false)
-                    }
-                })
-                .catch(err => {
-                    console.error("Events fetching error frontend", err)
+        axios.get(`${APP_HOST}events/all`, config)
+            .then(res => {
+                const { status, data } = res
+                if (status === 200) {
+                    setEvents(data.events)
                     setLoading(false)
-                })
-        }
-        fetchEvents()
-    }, [])
+                }
+            })
+            .catch(err => {
+                console.error("Events fetching error frontend", err)
+                setLoading(false)
+            })
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchEvents()
+        }, [])
+    );
 
     const handleDeleteConfirmation = (eventID) => {
         setShowDelModal(true)
