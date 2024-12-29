@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/dist/Entypo';
 import { launchImageLibrary } from 'react-native-image-picker';
-import DatePicker from 'react-native-date-picker'; // Import the date picker
+import DatePicker from 'react-native-date-picker';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { APP_HOST } from '@env';
 import axios from 'axios';
@@ -19,8 +19,6 @@ export default function CreateEvent() {
     const [uploading, setUploading] = useState(false);
     const [imageURL, setImageURL] = useState(null);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-
-    console.log(state);
 
     const handleOnChangeText = (name, val) => setState(s => ({ ...s, [name]: val }));
 

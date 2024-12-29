@@ -7,9 +7,9 @@ const verfiyToken = require("../middlewares/auth")
 router.get("/all", verfiyToken, async (req, res) => {
     try {
         const userID = req.userID
-        const todos = await todosModel.find({ userID })
+        const events = await eventsModel.find({ userID })
 
-        res.status(200).json({ message: "Fetched Todos!", todos })
+        res.status(200).json({ message: "Fetched events successfully!", events })
     }
     catch (err) {
         console.error(err)

@@ -9,31 +9,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UserEventsScreen({ navigation }) {
 
-    const [todos, setTodos] = useState([])
+    const [events, setEvents] = useState([])
     const [showDelModal, setShowDelModal] = useState(false)
     const [delTodoId, setDelTodoId] = useState('')
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const fetchTodos = async () => {
+        const fetchEvents = async () => {
             setLoading(true)
             const token = await AsyncStorage.getItem('jwt')
             const config = { headers: { Authorization: `Bearer ${token}` } }
 
-            axios.get(`${APP_HOST}todos/all`, config)
+            axios.get(`${APP_HOST}events/all`, config)
                 .then(res => {
                     const { status, data } = res
                     if (status === 200) {
-                        setTodos(data.todos)
+                        setEvents(data.events)
                         setLoading(false)
                     }
                 })
                 .catch(err => {
-                    console.error("Todo fetching error frontend", err)
+                    console.error("Events fetching error frontend", err)
                     setLoading(false)
                 })
         }
-        fetchTodos()
+        fetchEvents()
     }, [])
 
     const handleDeleteConfirmation = (todoID) => {
@@ -55,31 +55,11 @@ export default function UserEventsScreen({ navigation }) {
                         <Text style={{ color: '#666', fontSize: 16, fontWeight: '600', marginTop: 5, marginBottom: 12 }}>Manage all your events here:</Text>
                     </View>
                     {
-                        todos.length > 0 ?
-                            todos.map(todo => {
+                        events.length > 0 ?
+                            events.map(event => {
                                 return (
-                                    <View style={styles.todoBox} key={todo.todoId}>
-                                        <View style={styles.todoBoxTop}>
-                                            <Text style={{ color: '#666', fontWeight: 600 }}>{todo.title}</Text>
-                                        </View>
-                                        <View style={styles.todoBoxMid}>
-                                            <Text style={{ color: '#888' }}>{todo.description}</Text>
-                                        </View>
-                                        <View style={styles.todoBoxBottom}>
-                                            <TouchableOpacity style={{ flex: 1 }} onPress={() => navigation.navigate('TodoDetails', { todo })}>
-                                                <View style={{ flex: 1, alignItems: 'center', borderRightWidth: 1, borderColor: '#666' }}>
-                                                    <FeatherIcon name='edit-2' size={16} color='#0c82bd' />
-                                                </View>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={{ flex: 1 }} onPress={() => handleDeleteConfirmation(todo.todoID)}>
-                                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                                    <FeatherIcon name='trash' size={16} color='#ff3131' />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={styles.todoStatus}>
-                                            <Text style={{ color: todo.status === 'complete' ? '#08ff00' : '#e1f309' }}>{todo.status}</Text>
-                                        </View>
+                                    <View style={{ backgroundColor: '#eaeae', padding: 5 }}>
+                                        <Text style={{ color: '#666' }}>{event.title}</Text>
                                     </View>
                                 )
                             }) :
@@ -101,46 +81,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#efefef',
         padding: 10
-    },
-    todoBox: {
-        position: 'relative',
-        width: '100%',
-        backgroundColor: '#fff',
-        marginTop: 20,
-        marginBottom: 15,
-        borderTopLeftRadius: 8,
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
-    },
-    todoBoxTop: {
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-        borderBottomColor: '#eaeaea',
-        borderBottomWidth: 1,
-        padding: 10
-    },
-    todoBoxMid: {
-        minHeight: 70,
-        maxHeight: 70,
-        padding: 10,
-        overflow: 'hidden'
-    },
-    todoBoxBottom: {
-        flexDirection: 'row',
-        padding: 10,
-        backgroundColor: '#3d3d3d',
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8
-    },
-    todoStatus: {
-        position: 'absolute',
-        bottom: '95%',
-        right: 0,
-        backgroundColor: '#fff',
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
     },
     todosMessage: {
         padding: 10,

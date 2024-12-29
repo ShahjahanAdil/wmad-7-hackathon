@@ -28,7 +28,6 @@ export default function LoginScreen() {
         }, 3000);
     }, [showNotify])
 
-    console.log(state);
     const handleChange = (name, val) => setState(s => ({ ...s, [name]: val }))
 
     const handleSubmit = async () => {
@@ -62,11 +61,11 @@ export default function LoginScreen() {
             })
             .catch(err => {
                 console.error(err.message)
+                setLoading(false)
                 setState(initialState)
                 setType('error')
                 setMessage('Invalid email or password')
                 setShowNotify(true)
-                setLoading(false)
             })
     }
 
