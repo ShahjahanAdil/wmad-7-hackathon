@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import FeatherIcon from 'react-native-vector-icons/dist/Feather';
 import { APP_HOST } from '@env';
 import axios from 'axios';
@@ -11,7 +11,7 @@ export default function UserEventsScreen({ navigation }) {
 
     const [events, setEvents] = useState([])
     const [showDelModal, setShowDelModal] = useState(false)
-    const [delTodoId, setDelTodoId] = useState('')
+    const [delEventId, setDelEventId] = useState('')
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -36,9 +36,9 @@ export default function UserEventsScreen({ navigation }) {
         fetchEvents()
     }, [])
 
-    const handleDeleteConfirmation = (todoID) => {
+    const handleDeleteConfirmation = (eventID) => {
         setShowDelModal(true)
-        setDelTodoId(todoID)
+        setDelEventId(eventID)
     }
 
     if (loading) {
@@ -47,23 +47,35 @@ export default function UserEventsScreen({ navigation }) {
 
     return (
         <>
-            {showDelModal && <ConfirmDelete todos={todos} setTodos={setTodos} setShowDelModal={setShowDelModal} delTodoId={delTodoId} />}
+            {showDelModal && <ConfirmDelete events={events} setEvents={setEvents} setShowDelModal={setShowDelModal} delEventId={delEventId} />}
 
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.pageHeight}>
                     <View>
-                        <Text style={{ color: '#666', fontSize: 16, fontWeight: '600', marginTop: 5, marginBottom: 12 }}>Manage all your events here:</Text>
+                        <Text style={{ color: '#666', fontSize: 18, fontWeight: '600', marginTop: 5, marginBottom: 18 }}>Manage all your events here:</Text>
                     </View>
                     {
                         events.length > 0 ?
-                            events.map(event => {
+                            events.map((event, i) => {
                                 return (
-                                    <View style={{ backgroundColor: '#eaeae', padding: 5 }}>
-                                        <Text style={{ color: '#666' }}>{event.title}</Text>
+                                    <View key={i} style={styles.eventBox}>
+                                        <Image source={{ uri: event.imageURL }} style={styles.eventImage} />
+                                        <View style={{ padding: 10 }}>
+                                            <Text style={{ color: '#666', fontWeight: '600' }}>{event.title}</Text>
+                                            <Text style={{ color: '#888' }}>{event.description}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', backgroundColor: '#666', padding: 12 }}>
+                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
+                                                <FeatherIcon name='edit-3' size={16} color={'#fff'} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={() => handleDeleteConfirmation(event?.eventID)}>
+                                                <FeatherIcon name='trash-2' size={16} color={'#fff'} />
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 )
                             }) :
-                            <View style={styles.todosMessage}>
+                            <View style={styles.eventsMessage}>
                                 <Text style={{ color: '#f35e5e' }}>You have no events.</Text>
                                 <TouchableOpacity onPress={() => navigation.navigate('CreateEvent')}>
                                     <Text style={{ color: '#f35e5e', textDecorationLine: 'underline' }}>Create event now!</Text>
@@ -82,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#efefef',
         padding: 10
     },
-    todosMessage: {
+    eventsMessage: {
         padding: 10,
         backgroundColor: '#fde3e3',
         borderWidth: 1,
@@ -90,5 +102,18 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         flexDirection: 'row',
         gap: 3
+    },
+    eventBox: {
+        width: '100%',
+        minHeight: 150,
+        backgroundColor: '#fff',
+        marginBottom: 15,
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    eventImage: {
+        width: '100%',
+        height: 150,
+        borderRadius: 8,
     }
 })

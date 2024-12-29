@@ -4,6 +4,8 @@ const router = express.Router()
 const eventsModel = require("../models/events")
 const verfiyToken = require("../middlewares/auth")
 
+const generateRandomID = () => { return Math.random().toString(36).slice(5) }
+
 router.get("/all", verfiyToken, async (req, res) => {
     try {
         const userID = req.userID
@@ -23,6 +25,7 @@ router.post("/create", async (req, res) => {
 
         await eventsModel.create({
             userID,
+            eventID: generateRandomID(),
             title,
             description,
             imageURL,
@@ -54,13 +57,13 @@ router.patch("/update/:todoID", async (req, res) => {
     }
 })
 
-router.delete("/delete/:todoID", async (req, res) => {
+router.delete("/delete/:eventID", async (req, res) => {
     try {
-        const { todoID } = req.params
+        const { eventID } = req.params
 
-        await todosModel.findOneAndDelete({ todoID })
+        await eventsModel.findOneAndDelete({ eventID })
 
-        res.status(203).json({ message: 'Todo deleted!' })
+        res.status(203).json({ message: 'Event deleted!' })
     }
     catch (err) {
         console.error(err)
