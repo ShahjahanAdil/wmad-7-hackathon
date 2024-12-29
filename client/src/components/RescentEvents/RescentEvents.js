@@ -10,7 +10,7 @@ export default function RescentEvents() {
             date: '2024-03-25',
             location: 'San Francisco, CA',
             category: 'Tech',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/res-e1.jpg')
         },
         {
             title: 'Live Music Festival',
@@ -18,7 +18,7 @@ export default function RescentEvents() {
             date: '2024-06-10',
             location: 'New York City, NY',
             category: 'Music',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/res-e2.jpg')
         },
         {
             title: 'Marathon 2024',
@@ -26,7 +26,7 @@ export default function RescentEvents() {
             date: '2024-05-15',
             location: 'Chicago, IL',
             category: 'Sports',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/res-e3.jpg')
         },
         {
             title: 'AI Workshop',

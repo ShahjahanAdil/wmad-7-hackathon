@@ -64,7 +64,7 @@ export default function SignUpScreen() {
             })
             .catch((err) => {
                 console.error(err.message)
-                setType('success')
+                setType('error')
                 setMessage('An error occurred during registration. Please try again!')
             })
             .finally(() => {

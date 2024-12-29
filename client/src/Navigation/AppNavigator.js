@@ -15,6 +15,7 @@ import Loader from '../components/Loader/Loader';
 import CreateTodo from '../screens/Frontend/CreateTodo';
 import AllTodo from '../screens/Frontend/AllTodos';
 import TodoDetails from '../screens/Frontend/TodoDetails';
+import EventDetails from '../screens/Frontend/EventDetails';
 
 
 // Navigators
@@ -36,6 +37,7 @@ const StackNavigator = () => {
             <Stack.Screen name="CreateTodo" component={CreateTodo} options={{ headerTitle: 'Create Todo' }} />
             <Stack.Screen name="AllTodos" component={AllTodo} options={{ headerTitle: 'Manage Todos' }} />
             <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
+            <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerTitle: 'Event Information' }} />
         </Stack.Navigator>
     );
 }

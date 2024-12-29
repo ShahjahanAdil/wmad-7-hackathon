@@ -1,7 +1,10 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, Image, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 
 export default function UpcomingEvents() {
+
+    const navigation = useNavigation()
 
     const upcomingEvents = [
         {
@@ -10,7 +13,7 @@ export default function UpcomingEvents() {
             date: '2024-03-25',
             location: 'San Francisco, CA',
             category: 'Tech',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/up-e1.jpg')
         },
         {
             title: 'Live Music Festival',
@@ -18,7 +21,7 @@ export default function UpcomingEvents() {
             date: '2024-06-10',
             location: 'New York City, NY',
             category: 'Music',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/up-e2.jpg')
         },
         {
             title: 'Marathon 2024',
@@ -26,7 +29,7 @@ export default function UpcomingEvents() {
             date: '2024-05-15',
             location: 'Chicago, IL',
             category: 'Sports',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/up-e3.jpg')
         },
         {
             title: 'AI Workshop',
@@ -34,7 +37,7 @@ export default function UpcomingEvents() {
             date: '2024-04-20',
             location: 'Boston, MA',
             category: 'Tech',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/sport-event.webp')
         },
         {
             title: 'Outdoor Sports Day',
@@ -42,7 +45,7 @@ export default function UpcomingEvents() {
             date: '2024-07-30',
             location: 'Los Angeles, CA',
             category: 'Sports',
-            image: require('../../assets/images/music-event.webp')
+            image: require('../../assets/images/sport-event.webp')
         }
     ];
 
@@ -61,9 +64,11 @@ export default function UpcomingEvents() {
             >
                 {
                     upcomingEvents.map((event, index) => (
-                        <View key={index} style={styles.eventBox}>
-                            <Image source={event.image} style={styles.eventImage} />
-                        </View>
+                        <TouchableOpacity key={index} onPress={() => navigation.navigate('EventDetails', { event })}>
+                            <View key={index} style={styles.eventBox}>
+                                <Image source={event.image} style={styles.eventImage} />
+                            </View>
+                        </TouchableOpacity>
                     ))
                 }
             </ScrollView>
