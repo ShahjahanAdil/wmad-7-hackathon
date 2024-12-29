@@ -64,7 +64,7 @@ export default function LoginScreen() {
                 setLoading(false)
                 setState(initialState)
                 setType('error')
-                setMessage('Invalid email or password')
+                setMessage('Something went wrong!')
                 setShowNotify(true)
             })
     }

@@ -54,16 +54,19 @@ export default function AllEventsScreen({ navigation }) {
                         style={{ flex: 1 }}
                     >
                         <View>
-                            <Text style={{ color: '#333', fontSize: 20, fontWeight: 'bold', marginTop: 5, marginBottom: 18 }}>Happening Events:</Text>
+                            <Text style={{ color: '#333', fontSize: 20, fontWeight: 'bold', marginTop: 5, marginBottom: 18 }}>Public Events:</Text>
                         </View>
                         {events.map((event, index) => (
-                            <TouchableOpacity key={index} style={styles.eventBox} onPress={() => navigation.navigate('EventDetails', { event })}>
-                                <Image source={{ uri: event.imageURL }} style={styles.eventImage} />
-                                <View style={styles.eventDetails}>
-                                    <Text style={styles.eventTitle}>{event.title}</Text>
-                                    <Text style={{ color: '#666' }}>See details  <FeatherIcon name='arrowright' size={12} color={'#888'} /></Text>
-                                </View>
-                            </TouchableOpacity>
+                            (
+                                event.privacy === 'public' &&
+                                <TouchableOpacity key={index} style={styles.eventBox} onPress={() => navigation.navigate('EventDetails', { event })}>
+                                    <Image source={{ uri: event.imageURL }} style={styles.eventImage} />
+                                    <View style={styles.eventDetails}>
+                                        <Text style={styles.eventTitle}>{event.title}</Text>
+                                        <Text style={{ color: '#666' }}>See details  <FeatherIcon name='arrowright' size={12} color={'#888'} /></Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
                         ))}
                     </Animated.View>
                 }

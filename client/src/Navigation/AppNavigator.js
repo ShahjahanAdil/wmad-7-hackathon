@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FeatherIcon from 'react-native-vector-icons/dist/Feather';
+import EntypoIcon from 'react-native-vector-icons/dist/Entypo';
+import MaterialIcon from 'react-native-vector-icons/dist/MaterialIcons';
 
 // Screens
 import HomeScreen from '../screens/Frontend/HomeScreen';
@@ -17,6 +19,7 @@ import EventDetails from '../screens/Frontend/EventDetails';
 import CreateEvent from '../screens/Frontend/CreateEvent';
 import UserEventsScreen from '../screens/Frontend/UserEventsScreen';
 import AllEventsScreen from '../screens/Frontend/AllEventsScreen';
+import EditEventScreen from '../screens/Frontend/EditEventScreen';
 
 
 // Navigators
@@ -36,6 +39,7 @@ const StackNavigator = () => {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerTitle: 'Create Event' }} />
+            <Stack.Screen name="EditEvent" component={EditEventScreen} options={{ headerTitle: 'Edit Event' }} />
             <Stack.Screen name="UserEventsScreen" component={UserEventsScreen} options={{ headerTitle: 'Manage Events' }} />
             <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerTitle: 'Event Information' }} />
             <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
@@ -61,9 +65,9 @@ const TabNavigator = () => {
                 tabBarInactiveTintColor: '#666',
             }} />
             <Tab.Screen name="AllEvents" component={AllEventsScreen} options={{
-                title: 'Events',
+                title: 'All Events',
                 tabBarIcon: ({ focused }) => (
-                    <FeatherIcon name='check-square' size={18} color={focused ? '#0c82bd' : '#666'} />
+                    <MaterialIcon name='event' size={18} color={focused ? '#0c82bd' : '#666'} />
                 ),
                 tabBarActiveTintColor: '#0c82bd',
                 tabBarInactiveTintColor: '#666'
@@ -71,7 +75,7 @@ const TabNavigator = () => {
             <Tab.Screen name="Events" component={EventsScreen} options={{
                 title: 'Manage Events',
                 tabBarIcon: ({ focused }) => (
-                    <FeatherIcon name='check-square' size={18} color={focused ? '#0c82bd' : '#666'} />
+                    <EntypoIcon name='list' size={20} color={focused ? '#0c82bd' : '#666'} />
                 ),
                 tabBarActiveTintColor: '#0c82bd',
                 tabBarInactiveTintColor: '#666'

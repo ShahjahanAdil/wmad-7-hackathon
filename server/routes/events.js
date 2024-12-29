@@ -56,14 +56,14 @@ router.post("/create", async (req, res) => {
     }
 })
 
-router.patch("/update/:todoID", async (req, res) => {
+router.patch("/update/:eventID", async (req, res) => {
     try {
-        const updatedTodo = req.body
-        const { todoID } = req.params
+        const updatedEvent = req.body
+        const { eventID } = req.params
 
-        await todosModel.findOneAndUpdate({ todoID }, updatedTodo, { new: true })
+        await eventsModel.findOneAndUpdate({ eventID }, updatedEvent, { new: true })
 
-        res.status(202).json({ message: 'Todo updated!' })
+        res.status(202).json({ message: 'Event updated!' })
     }
     catch (err) {
         console.error(err)

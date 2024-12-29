@@ -12,7 +12,7 @@ export default function EventDetails({ route }) {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.pageHeight}>
                     <View style={styles.eventImageView}>
-                        <Image source={event.image} style={styles.eventImage} />
+                        <Image source={event.image ? event.image : { uri: event.imageURL }} style={styles.eventImage} />
                     </View>
                     <View style={styles.eventDetails}>
                         <Text style={{ color: '#666', fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>{event.title}</Text>
@@ -23,7 +23,7 @@ export default function EventDetails({ route }) {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                             <View>
                                 <Text style={{ color: '#666', fontWeight: '500' }}>Schedule <FeatherIcon name='clock' size={14} color={'#e00909'} /></Text>
-                                <Text style={{ color: '#888' }}>{event.date}</Text>
+                                <Text style={{ color: '#888' }}>{event.date.slice(0, 10)}</Text>
                             </View>
                             <View>
                                 <Text style={{ color: '#666', fontWeight: '500' }}>Location <IonIcon name='location-sharp' size={15} color={'#0065d6'} /></Text>

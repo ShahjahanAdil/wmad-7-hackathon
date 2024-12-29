@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, ScrollView } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import EntypoIcon from 'react-native-vector-icons/dist/Entypo';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -101,111 +101,115 @@ export default function CreateEvent() {
     };
 
     return (
-        <View style={styles.pageHeight}>
-            <View style={styles.createTodoContainer}>
-                <Text style={styles.headerText}>Create Event</Text>
-                <View style={{ gap: 10 }}>
-                    <View>
-                        <Text style={styles.label}>Title:</Text>
-                        <TextInput
-                            style={styles.createTodoInput}
-                            placeholder="Enter title"
-                            placeholderTextColor="#e7e7e7"
-                            cursorColor="#0C82BD"
-                            value={state.title}
-                            onChangeText={(val) => handleOnChangeText('title', val)}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Description:</Text>
-                        <TextInput
-                            style={styles.createTodoInput}
-                            placeholder="Enter description"
-                            placeholderTextColor="#e7e7e7"
-                            cursorColor="#0C82BD"
-                            value={state.description}
-                            onChangeText={(val) => handleOnChangeText('description', val)}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Location:</Text>
-                        <TextInput
-                            style={styles.createTodoInput}
-                            placeholder="Enter location"
-                            placeholderTextColor="#e7e7e7"
-                            cursorColor="#0C82BD"
-                            value={state.location}
-                            onChangeText={(val) => handleOnChangeText('location', val)}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Category:</Text>
-                        <TextInput
-                            style={styles.createTodoInput}
-                            placeholder="Enter category"
-                            placeholderTextColor="#e7e7e7"
-                            cursorColor="#0C82BD"
-                            value={state.category}
-                            onChangeText={(val) => handleOnChangeText('category', val)}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Privacy:</Text>
-                        <SelectList
-                            setSelected={(val) => handleOnChangeText('privacy', val)}
-                            data={data}
-                            save="key"
-                            defaultOption={data.find(item => item.key === state.privacy) || data[0]}
-                            boxStyles={{ paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderColor: '#e7e7e7' }}
-                            inputStyles={{ color: '#666' }}
-                            dropdownStyles={{ borderColor: '#e7e7e7' }}
-                            dropdownTextStyles={{ color: '#666' }}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Date:</Text>
-                        <TouchableOpacity style={styles.datePickerButton} onPress={() => setIsDatePickerOpen(true)}>
-                            <Text style={styles.datePickerButtonText}>Select Date</Text>
-                        </TouchableOpacity>
-                        <DatePicker
-                            modal
-                            open={isDatePickerOpen}
-                            date={state.date}
-                            onConfirm={(date) => {
-                                setIsDatePickerOpen(false);
-                                setState((s) => ({ ...s, date }));
-                            }}
-                            onCancel={() => setIsDatePickerOpen(false)}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.label}>Image:</Text>
-                        <TouchableOpacity style={styles.imagePicker} onPress={selectImage}>
-                            <Text style={styles.imagePickerText}>Select Image</Text>
-                        </TouchableOpacity>
-                        {state.image && (
-                            <Image
-                                source={{ uri: state.image.uri }}
-                                style={styles.previewImage}
-                            />
-                        )}
-                    </View>
-                </View>
+        <>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={styles.pageHeight}>
+                    <View style={styles.createTodoContainer}>
+                        <Text style={styles.headerText}>Create Event</Text>
+                        <View style={{ gap: 10 }}>
+                            <View>
+                                <Text style={styles.label}>Title:</Text>
+                                <TextInput
+                                    style={styles.createTodoInput}
+                                    placeholder="Enter title"
+                                    placeholderTextColor="#e7e7e7"
+                                    cursorColor="#0C82BD"
+                                    value={state.title}
+                                    onChangeText={(val) => handleOnChangeText('title', val)}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Description:</Text>
+                                <TextInput
+                                    style={styles.createTodoInput}
+                                    placeholder="Enter description"
+                                    placeholderTextColor="#e7e7e7"
+                                    cursorColor="#0C82BD"
+                                    value={state.description}
+                                    onChangeText={(val) => handleOnChangeText('description', val)}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Location:</Text>
+                                <TextInput
+                                    style={styles.createTodoInput}
+                                    placeholder="Enter location"
+                                    placeholderTextColor="#e7e7e7"
+                                    cursorColor="#0C82BD"
+                                    value={state.location}
+                                    onChangeText={(val) => handleOnChangeText('location', val)}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Category:</Text>
+                                <TextInput
+                                    style={styles.createTodoInput}
+                                    placeholder="Enter category"
+                                    placeholderTextColor="#e7e7e7"
+                                    cursorColor="#0C82BD"
+                                    value={state.category}
+                                    onChangeText={(val) => handleOnChangeText('category', val)}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Privacy:</Text>
+                                <SelectList
+                                    setSelected={(val) => handleOnChangeText('privacy', val)}
+                                    data={data}
+                                    save="key"
+                                    defaultOption={data.find(item => item.key === state.privacy) || data[0]}
+                                    boxStyles={{ paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderColor: '#e7e7e7' }}
+                                    inputStyles={{ color: '#666' }}
+                                    dropdownStyles={{ borderColor: '#e7e7e7' }}
+                                    dropdownTextStyles={{ color: '#666' }}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Date:</Text>
+                                <TouchableOpacity style={styles.datePickerButton} onPress={() => setIsDatePickerOpen(true)}>
+                                    <Text style={styles.datePickerButtonText}>Select Date</Text>
+                                </TouchableOpacity>
+                                <DatePicker
+                                    modal
+                                    open={isDatePickerOpen}
+                                    date={state.date}
+                                    onConfirm={(date) => {
+                                        setIsDatePickerOpen(false);
+                                        setState((s) => ({ ...s, date }));
+                                    }}
+                                    onCancel={() => setIsDatePickerOpen(false)}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Image:</Text>
+                                <TouchableOpacity style={styles.imagePicker} onPress={selectImage}>
+                                    <Text style={styles.imagePickerText}>Select Image</Text>
+                                </TouchableOpacity>
+                                {state.image && (
+                                    <Image
+                                        source={{ uri: state.image.uri }}
+                                        style={styles.previewImage}
+                                    />
+                                )}
+                            </View>
+                        </View>
 
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity
-                        style={styles.createBtn}
-                        onPress={handleCreateEvent}
-                        disabled={loading || uploading}
-                    >
-                        <Text style={styles.createBtnText}>
-                            {uploading ? 'Uploading...' : loading ? 'Adding...' : 'Create '}
-                            <EntypoIcon name="plus" size={16} color="#fff" />
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View >
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity
+                                style={styles.createBtn}
+                                onPress={handleCreateEvent}
+                                disabled={loading || uploading}
+                            >
+                                <Text style={styles.createBtnText}>
+                                    {uploading ? 'Uploading...' : loading ? 'Adding...' : 'Create '}
+                                    <EntypoIcon name="plus" size={16} color="#fff" />
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View >
+            </ScrollView>
+        </>
     );
 }
 

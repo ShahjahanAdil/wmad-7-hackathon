@@ -65,7 +65,7 @@ export default function UserEventsScreen({ navigation }) {
                                             <Text style={{ color: '#888' }}>{event.description}</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', backgroundColor: '#666', padding: 12 }}>
-                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
+                                            <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={() => navigation.navigate('EditEvent', { event })}>
                                                 <FeatherIcon name='edit-3' size={16} color={'#fff'} />
                                             </TouchableOpacity>
                                             <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={() => handleDeleteConfirmation(event?.eventID)}>
