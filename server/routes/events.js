@@ -6,6 +6,18 @@ const verfiyToken = require("../middlewares/auth")
 
 const generateRandomID = () => { return Math.random().toString(36).slice(5) }
 
+router.get("/all-events", async (req, res) => {
+    try {
+        const events = await eventsModel.find()
+
+        res.status(200).json({ message: "Fetched events successfully!", events })
+    }
+    catch (err) {
+        console.error(err)
+        res.status(400).json({ message: err.message })
+    }
+})
+
 router.get("/all", verfiyToken, async (req, res) => {
     try {
         const userID = req.userID
@@ -23,7 +35,7 @@ router.post("/create", async (req, res) => {
     try {
         const { userID, title, description, imageURL, location, category, date } = req.body
         const eventID = generateRandomID()
-        
+
         await eventsModel.create({
             userID,
             eventID,
@@ -32,7 +44,7 @@ router.post("/create", async (req, res) => {
             imageURL,
             location,
             category,
-            date
+            date,
         })
 
         res.status(201).json({ message: "Event created!" })

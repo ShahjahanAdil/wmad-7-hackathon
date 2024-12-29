@@ -9,7 +9,7 @@ const eventsSchema = new Schema({
     imageURL: { type: String, required: true },
     location: { type: String },
     category: { type: String },
-    date: { type: String }
+    date: { type: String },
 }, { timestamps: true })
 
 const eventsModel = mongoose.model("events", eventsSchema)

@@ -12,11 +12,11 @@ import LoginScreen from '../screens/Auth/LoginScreen';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loader from '../components/Loader/Loader';
-import AllTodo from '../screens/Frontend/AllTodos';
 import TodoDetails from '../screens/Frontend/TodoDetails';
 import EventDetails from '../screens/Frontend/EventDetails';
 import CreateEvent from '../screens/Frontend/CreateEvent';
 import UserEventsScreen from '../screens/Frontend/UserEventsScreen';
+import AllEventsScreen from '../screens/Frontend/AllEventsScreen';
 
 
 // Navigators
@@ -36,10 +36,9 @@ const StackNavigator = () => {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerTitle: 'Create Event' }} />
-            <Stack.Screen name="AllTodos" component={AllTodo} options={{ headerTitle: 'Manage Todos' }} />
             <Stack.Screen name="UserEventsScreen" component={UserEventsScreen} options={{ headerTitle: 'Manage Events' }} />
-            <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
             <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerTitle: 'Event Information' }} />
+            <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
         </Stack.Navigator>
     );
 }
@@ -61,8 +60,16 @@ const TabNavigator = () => {
                 tabBarActiveTintColor: '#0c82bd',
                 tabBarInactiveTintColor: '#666',
             }} />
+            <Tab.Screen name="AllEvents" component={AllEventsScreen} options={{
+                title: 'Events',
+                tabBarIcon: ({ focused }) => (
+                    <FeatherIcon name='check-square' size={18} color={focused ? '#0c82bd' : '#666'} />
+                ),
+                tabBarActiveTintColor: '#0c82bd',
+                tabBarInactiveTintColor: '#666'
+            }} />
             <Tab.Screen name="Events" component={EventsScreen} options={{
-                title: 'Your Events',
+                title: 'Manage Events',
                 tabBarIcon: ({ focused }) => (
                     <FeatherIcon name='check-square' size={18} color={focused ? '#0c82bd' : '#666'} />
                 ),
