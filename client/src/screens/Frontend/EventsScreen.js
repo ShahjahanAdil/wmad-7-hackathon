@@ -51,12 +51,13 @@ export default function TodosScreen({ navigation }) {
                         }
 
                         <View style={styles.todosView}>
-                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>Todos Manager</Text>
+                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>Event Manager</Text>
+                            <Text style={{ color: '#fff', fontSize: 14, fontWeight: '400', textAlign: 'center' }}>Create and edit your events here</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 12 }}>
-                                <TouchableOpacity style={styles.createButton} onPress={() => handleOnPress('CreateTodo')}>
+                                <TouchableOpacity style={styles.createButton} onPress={() => handleOnPress('CreateEvent')}>
                                     <Text style={{ color: '#fff', fontWeight: 500 }}>Create <EntypoIcon name='plus' size={16} color='#fff' /></Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.createButton} onPress={() => handleOnPress('AllTodos')}>
+                                <TouchableOpacity style={styles.createButton} onPress={() => handleOnPress('UserEventsScreen')}>
                                     <Text style={{ color: '#fff', fontWeight: 500 }}>Manage <FeatherIcon name='edit-2' size={16} color='#fff' /></Text>
                                 </TouchableOpacity>
                             </View>
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#0c82bd',
         padding: 10,
+        paddingBottom: 15,
         borderRadius: 8,
         elevation: 5
     },
@@ -108,6 +110,5 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 15,
         borderRadius: 5,
-        elevation: 3
     },
 })

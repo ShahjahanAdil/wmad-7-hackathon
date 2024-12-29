@@ -1,7 +1,10 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, Image, Text } from 'react-native'
+import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 export default function RescentEvents() {
+
+    const navigation = useNavigation()
 
     const upcomingEvents = [
         {
@@ -61,13 +64,15 @@ export default function RescentEvents() {
             >
                 {
                     upcomingEvents.map((event, index) => (
-                        <View key={index} style={styles.eventBox}>
-                            <Image source={event.image} style={styles.eventImage} />
-                        </View>
+                        <TouchableOpacity key={index} onPress={() => navigation.navigate('EventDetails', { event })}>
+                            <View key={index} style={styles.eventBox}>
+                                <Image source={event.image} style={styles.eventImage} />
+                            </View>
+                        </TouchableOpacity>
                     ))
                 }
             </ScrollView>
-        </View>
+        </View >
     )
 }
 

@@ -12,10 +12,11 @@ import LoginScreen from '../screens/Auth/LoginScreen';
 import SignUpScreen from '../screens/Auth/SignUpScreen';
 import { useAuthContext } from '../contexts/AuthContext';
 import Loader from '../components/Loader/Loader';
-import CreateTodo from '../screens/Frontend/CreateTodo';
 import AllTodo from '../screens/Frontend/AllTodos';
 import TodoDetails from '../screens/Frontend/TodoDetails';
 import EventDetails from '../screens/Frontend/EventDetails';
+import CreateEvent from '../screens/Frontend/CreateEvent';
+import UserEventsScreen from '../screens/Frontend/UserEventsScreen';
 
 
 // Navigators
@@ -34,8 +35,9 @@ const StackNavigator = () => {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="CreateTodo" component={CreateTodo} options={{ headerTitle: 'Create Todo' }} />
+            <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ headerTitle: 'Create Event' }} />
             <Stack.Screen name="AllTodos" component={AllTodo} options={{ headerTitle: 'Manage Todos' }} />
+            <Stack.Screen name="UserEventsScreen" component={UserEventsScreen} options={{ headerTitle: 'Manage Events' }} />
             <Stack.Screen name="TodoDetails" component={TodoDetails} options={{ headerTitle: 'Todo Details' }} />
             <Stack.Screen name="EventDetails" component={EventDetails} options={{ headerTitle: 'Event Information' }} />
         </Stack.Navigator>
