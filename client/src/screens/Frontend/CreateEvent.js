@@ -83,11 +83,13 @@ export default function CreateEvent() {
                     setState(initialState);
                     setImageURL(null);
                     setLoading(false);
+                    Alert.alert('Success!', 'Event created successfully')
                 }
             })
             .catch(err => {
                 console.error("Event create error frontend", err);
                 setLoading(false);
+                Alert.alert('Error!', 'Something went wrong. Please try again')
             });
     };
 

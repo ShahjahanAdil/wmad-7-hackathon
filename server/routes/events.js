@@ -22,10 +22,11 @@ router.get("/all", verfiyToken, async (req, res) => {
 router.post("/create", async (req, res) => {
     try {
         const { userID, title, description, imageURL, location, category, date } = req.body
-
+        const eventID = generateRandomID()
+        
         await eventsModel.create({
             userID,
-            eventID: generateRandomID(),
+            eventID,
             title,
             description,
             imageURL,

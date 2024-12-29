@@ -3,6 +3,7 @@ const { Schema } = mongoose
 
 const eventsSchema = new Schema({
     userID: { type: String, required: true },
+    eventID: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     imageURL: { type: String, required: true },
